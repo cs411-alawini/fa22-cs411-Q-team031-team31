@@ -2,18 +2,14 @@
 
 ## Basic Information
 
-| Info     | Description           |
-| -------- | --------------------- |
-| TeamID   | Team-031              |
-| TeamName | team031               |
-| Captain  | Chris Whamond         |
-| Captain  | whamond2@illinois.edu |
-| Member1  | Shawn Lee             |
-| Member1  | hl8@illinois.edu      |
-| Member2  | Jackie Chan           |
-| Member2  | jackiec3@illinois.edu |
-| Member3  | Aditya Karan          |
-| Member3  | karan2@illinois.edu   |
+_TeamID_: `Team-031`, _TeamName_: `team031`
+
+| Position | Name          | Email                   |
+| -------- | ------------- | ----------------------- |
+| Captain  | Chris Whamond | `whamond2@illinois.edu` |
+| Member 1 | Shawn Lee     | `hl8@illinois.edu`      |
+| Member 2 | Jackie Chan   | `jackiec3@illinois.edu` |
+| Member 3 | Aditya Karan  | `karan2@illinois.edu`   |
 
 ## Project Information
 
