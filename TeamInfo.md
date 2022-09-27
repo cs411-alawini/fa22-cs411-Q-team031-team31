@@ -13,11 +13,11 @@ _TeamID_: `Team-031`, _TeamName_: `team31`
 
 ## Project Information
 
-| Info       | Description    |
-| ---------- | -------------- |
-| Title      | ProjectTitle   |
-| System URL | link_to_system |
-| Video Link | link_to_video  |
+| Info       | Description                      |
+| ---------- | -------------------------------- |
+| Title      | Flight Pricing and User Profiles |
+| System URL | link_to_system                   |
+| Video Link | link_to_video                    |
 
 ## Project Summary
 
