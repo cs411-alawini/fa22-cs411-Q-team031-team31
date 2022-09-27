@@ -2,7 +2,7 @@
 
 ## Basic Information
 
-_TeamID_: `Team-031`, _TeamName_: `team031`
+_TeamID_: `Team-031`, _TeamName_: `team31`
 
 | Position | Name          | Email                   |
 | -------- | ------------- | ----------------------- |
