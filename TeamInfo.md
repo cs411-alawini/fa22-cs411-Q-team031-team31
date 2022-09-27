@@ -21,4 +21,4 @@ _TeamID_: `Team-031`, _TeamName_: `team31`
 
 ## Project Summary
 
-Our project involves developing a web application to provide users with a database of historic flight ticket prices. Users will be able to query this data based on desired attributes, visualize historic price trends, and view differences in price on individual flights between predefined user attribute profiles. Our application will also allow users to contribute their own flight price data, and add their own attribute information upon submission to expand the pool of user attributes available in future queries.
+Our project involves developing a web application to provide users with a database of historic flight ticket prices. Users will be able to query this data based on desired attributes, visualize historic price trends, and view differences in price on individual flights between predefined user attribute profiles. Our application will also allow users to contribute their own flight price data, and add their own attribute information upon submission to expand the pool of user attributes available in future sessions.
