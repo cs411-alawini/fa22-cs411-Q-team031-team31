@@ -1,0 +1,18 @@
+version: "3"
+services:
+  backend:
+    container_name: backend
+    image: db_backend
+    ports:
+      - "8000:8000"
+    command:
+      ${HOST} ${PORT}
+  
+  db:
+    container_name: postgres
+    image: postgres:14.1-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'

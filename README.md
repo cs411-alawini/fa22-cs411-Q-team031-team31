@@ -19,3 +19,20 @@ You should make sure you keep your project root files up-to-date. Information fo
 ## Code Contribution
 
 Individual code contribution will be used to evaluate individual contribution to the project.
+
+
+# Installation for DEV environment
+### 1. build docker image
+`make build-backend`
+
+### 2. run docker-compose
+`docker-compose up`
+
+if you see the following image, you are ready to go
+![](./successful_installation.png?raw=true "Installation Success")
+
+## Tips
+In order to open the Postgresql in the docker, use
+`docker exec -it postgres psql -U postgres -P postgres`
+
+
