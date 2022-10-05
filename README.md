@@ -36,10 +36,15 @@ Please follow the `flake8` linting rules for readability
 
 
 # Installation for DEV environment
-### 1. build docker image
+### 1. Install docker
+https://www.docker.com/products/docker-desktop/
+
+After downloading it, run the app.
+
+### 2. build docker image
 `make build-backend`
 
-### 2. run docker-compose
+### 3. run docker-compose
 `docker-compose up`
 
 if you see the following image, you are ready to go
