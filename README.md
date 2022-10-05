@@ -29,7 +29,8 @@ Individual code contribution will be used to evaluate individual contribution to
 `docker-compose up`
 
 if you see the following image, you are ready to go
-![image](./successful_installation.png?raw=true "Installation Success")
+<img width="812" alt="Screen Shot 2022-10-05 at 10 37 50 AM" src="https://user-images.githubusercontent.com/103418311/194102191-cd2c3c82-f965-412a-bcb7-faaa1f449a1e.png">
+
 
 ## Tips
 In order to open the Postgresql in the docker, use
