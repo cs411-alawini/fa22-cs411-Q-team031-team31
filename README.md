@@ -24,7 +24,11 @@ Individual code contribution will be used to evaluate individual contribution to
 
 # Install python lint
 `pip install pre-commit`
+
+
 This will check the code formatting before every merge.
+
+
 Please follow the `flake8` linting rules for readability
 
 
