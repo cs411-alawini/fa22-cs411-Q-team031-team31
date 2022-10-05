@@ -29,7 +29,7 @@ Individual code contribution will be used to evaluate individual contribution to
 `docker-compose up`
 
 if you see the following image, you are ready to go
-![](./successful_installation.png?raw=true "Installation Success")
+![image](./successful_installation.png?raw=true "Installation Success")
 
 ## Tips
 In order to open the Postgresql in the docker, use
