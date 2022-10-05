@@ -21,6 +21,13 @@ You should make sure you keep your project root files up-to-date. Information fo
 Individual code contribution will be used to evaluate individual contribution to the project.
 
 
+
+# Install python lint
+`pip install pre-commit`
+This will check the code formatting before every merge.
+Please follow the `flake8` linting rules for readability
+
+
 # Installation for DEV environment
 ### 1. build docker image
 `make build-backend`
