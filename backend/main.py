@@ -1,6 +1,4 @@
-from re import A
 import sys
-
 import uvicorn
 from fastapi import FastAPI
 

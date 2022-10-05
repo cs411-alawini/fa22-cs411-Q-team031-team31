@@ -35,5 +35,3 @@ if you see the following image, you are ready to go
 ## Tips
 In order to open the Postgresql in the docker, use
 `docker exec -it postgres psql -U postgres -P postgres`
-
-
