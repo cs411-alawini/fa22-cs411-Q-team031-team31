@@ -1,10 +1,12 @@
+import logging
 import sys
 import uvicorn
-from fastapi import FastAPI
 
+from server.api.api import app
+from psql.tables import init_database
 
-def app():
-    return FastAPI()
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 def get_command_line_args():
@@ -18,7 +20,9 @@ def get_command_line_args():
 
 def main():
     host, port = get_command_line_args()
-    app = FastAPI()
+
+    logger.info("Initiating the database")
+    init_database()
 
     uvicorn.run(app, host=host, port=port)
 
