@@ -30,7 +30,7 @@ function AddUsers() {
       password: "",
     },
     validate: {
-      name: (name) => (name.length <= 100 ? null : "Name too long"),
+      name: (name) => (name.length <= 100 ? null : "Name is too long"),
       gender: (gender) =>
         genderOptions.includes(gender) ? null : "Not a gender option",
       age: (age) => (age >= 18 ? null : "Age too low"),
@@ -39,19 +39,19 @@ function AddUsers() {
       websiteVisited: (websiteVisited) =>
         websiteVisited.length <= 100 ? null : "List too long",
       password: (password) =>
-        password.length <= 100 ? null : "Password too long",
+        password.length <= 100 ? null : "Password is too long",
     },
   });
 
   return (
     <>
-      <Text>This page allows you to add a user into the database.</Text>
+      <Text>Please enter the information required to input a user.</Text>
       <form onSubmit={form.onSubmit((values) => console.log(values))}>
         <Stack align="flex-start" sx={{ maxWidth: 300 }}>
           <TextInput
             withAsterisk
             label="Name"
-            placeholder="First Name"
+            placeholder="Full Name"
             {...form.getInputProps("name")}
             sx={{ width: BUTTON_WIDTH }}
           />
