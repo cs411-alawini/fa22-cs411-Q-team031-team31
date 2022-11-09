@@ -20,40 +20,34 @@ You should make sure you keep your project root files up-to-date. Information fo
 
 Individual code contribution will be used to evaluate individual contribution to the project.
 
-
-
 # Install python lint
-`pip install pre-commit`
 
+`pip install pre-commit`
 
 This will check the code formatting before every commit
 
-
 Please follow the `flake8` linting rules for readability
 
-
-
-
-
 # Installation for DEV environment
+
 ### 1. Install docker
+
 https://www.docker.com/products/docker-desktop/
 
 After downloading it, run the app.
 
 ### 2. build docker image
+
 `make build-backend`
 
 ### 3. run docker-compose
+
 `docker-compose up`
 
 if you see the following image, you are ready to go
 <img width="812" alt="Screen Shot 2022-10-05 at 10 37 50 AM" src="https://user-images.githubusercontent.com/103418311/194102191-cd2c3c82-f965-412a-bcb7-faaa1f449a1e.png">
 
-
-
-
-
 # Tips
+
 In order to open the Postgresql in the docker, use
 `docker exec -it postgres psql -U postgres -P postgres`
