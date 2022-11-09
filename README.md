@@ -9,7 +9,7 @@
    1. Run `docker-compose up`.
    1. Check if you see the following in your terminal:
 
-<img width="812" alt="Screen Shot 2022-10-05 at 10 37 50 AM" src="https://user-images.githubusercontent.com/103418311/194102191-cd2c3c82-f965-412a-bcb7-faaa1f449a1e.png">
+![Backend Sanity Check](https://user-images.githubusercontent.com/103418311/194102191-cd2c3c82-f965-412a-bcb7-faaa1f449a1e.png)
 
 ## Frontend Setup
 
