@@ -1,4 +1,4 @@
-from psql.client import query
+from psql.router import query
 
 import logging
 
@@ -11,6 +11,8 @@ def init_database():
     init_profile_table()
     init_human_user_table()
     init_automated_agent_table()
+
+    create_profile_trigger()
 
 
 def init_leg_info_table():
@@ -108,16 +110,15 @@ CREATE TABLE IF NOT EXISTS automated_agent (
 def init_human_user_table():
     SQL = """
 CREATE TABLE IF NOT EXISTS human_user (
-   id INTEGER NOT NULL,
+   id SERIAL PRIMARY KEY,
    name VARCHAR(50) NOT NULL,
    gender VARCHAR(10) NOT NULL,
    age INT NOT NULL,
    zip VARCHAR(10),
    website_visited VARCHAR(250),
-   user_id VARCHAR(100) NOT NULL,
+   username VARCHAR(100) NOT NULL UNIQUE,
    password VARCHAR(100) NOT NULL,
 
-   PRIMARY KEY (id),
    CONSTRAINT fk_profile FOREIGN KEY (id) REFERENCES profile(id)
 );
     """
@@ -125,3 +126,21 @@ CREATE TABLE IF NOT EXISTS human_user (
     query(SQL)
 
     logging.info("initiated a 'human_user' table")
+
+
+def create_profile_trigger():
+    SQL = """
+CREATE OR REPLACE FUNCTION create_profile() RETURNS TRIGGER AS $example_table$
+   BEGIN
+      INSERT INTO profile(id, name) VALUES (new.id, new.name);
+      RETURN NEW;
+   END;
+$example_table$ LANGUAGE plpgsql;    
+
+CREATE OR REPLACE TRIGGER profile_creation_trigger BEFORE INSERT ON human_user
+FOR EACH ROW EXECUTE PROCEDURE create_profile();
+    """
+
+    query(SQL)
+
+    logging.info("initiated a 'profile_trigger'")
