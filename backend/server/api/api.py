@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from psql.models import User
+from psql.price import average_round_trip_price
 from psql.route import search_routes, average_round_trip_length
 from psql.user import create_user, delete_user, update_user
 
@@ -52,3 +53,8 @@ def update_one_user(user: User):
 @app.get("/average-round-trip-length")
 def get_average_round_trip_length():
     return average_round_trip_length()
+
+
+@app.get("/average-round-trip-price")
+def get_average_round_trip_price():
+    return average_round_trip_price()
