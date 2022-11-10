@@ -1,3 +1,6 @@
 *.pyc
 *.pdf
 doc/*
+**/__*__
+# Local Netlify folder
+.netlify
