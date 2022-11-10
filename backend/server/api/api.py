@@ -12,6 +12,9 @@ def get_app():
 
 app = get_app()
 
+# Explanations:
+# - https://github.com/axios/axios/issues/4420
+# - https://stackoverflow.com/q/65635346/18282722
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
