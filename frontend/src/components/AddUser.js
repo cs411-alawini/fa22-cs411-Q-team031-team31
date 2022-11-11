@@ -27,8 +27,8 @@ function AddUser() {
       name: "",
       gender: "NB",
       age: 18,
-      zipCode: 61820,
-      websiteVisited: "",
+      zip: "61820",
+      website_visited: "",
       password: "",
     },
     validate: {
@@ -40,20 +40,19 @@ function AddUser() {
           ? null
           : "Not a gender option",
       age: (age) => (age >= 18 ? null : "Age too low"),
-      zipCode: (zipCode) =>
-        zipCode.toString().length <= 10 ? null : "Zipcode too long",
-      websiteVisited: (websiteVisited) =>
-        websiteVisited.length <= 100 ? null : "List too long",
+      zip: (zip) => (zip.length <= 10 ? null : "Zipcode too long"),
+      website_visited: (website_visited) =>
+        website_visited.length <= 100 ? null : "List too long",
       password: (password) =>
         password.length <= 100 ? null : "Password is too long",
     },
   });
 
   async function handleOnSubmit(values) {
-    const response = await axios.post(
-      "http://localhost:8888/create-user",
-      values
-    );
+    const response = await axios
+      .post("http://localhost:8888/create-user", values)
+      .then(() => form.reset())
+      .catch((error) => console.log(error));
   }
 
   return (
@@ -105,14 +104,14 @@ function AddUser() {
           <TextInput
             label="Websites visited"
             placeholder="reddit.com, github.com, facebook.com"
-            {...form.getInputProps("websiteVisited")}
+            {...form.getInputProps("website_visited")}
             sx={{ width: BUTTON_WIDTH }}
           />
 
           <TextInput
-            label="Zipcode"
+            label="ZIP code"
             placeholder="61820"
-            {...form.getInputProps("zipCode")}
+            {...form.getInputProps("zip")}
             sx={{ width: BUTTON_WIDTH }}
           />
 
