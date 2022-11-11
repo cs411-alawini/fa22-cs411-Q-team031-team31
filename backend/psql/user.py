@@ -7,6 +7,10 @@ import logging
 
 
 def create_user(user: User):
+
+    print(user)
+    print('added')
+
     SQL = f"""
 INSERT INTO human_user(
     name,

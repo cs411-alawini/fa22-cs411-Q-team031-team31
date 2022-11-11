@@ -18,7 +18,12 @@ app = get_app()
 # - https://stackoverflow.com/q/65635346/18282722
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost",
+        "https://losthost:3000",
+        "https://localhost"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
