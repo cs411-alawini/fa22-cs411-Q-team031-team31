@@ -50,8 +50,7 @@ SET
     gender = {stringify(user.gender)},
     age = {stringify(user.age)},
     zip = {stringify(user.zip)},
-    website_visited = {stringify(user.website_visited)},
-    username = {stringify(user.username)},
+    website_visited = {stringify(user.website_visited)}
 WHERE
     username = {stringify(user.username)}
 AND
