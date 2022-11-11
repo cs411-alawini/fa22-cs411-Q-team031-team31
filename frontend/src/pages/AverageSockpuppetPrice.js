@@ -1,49 +1,41 @@
-import {
-  Button,
-  Divider,
-  Flex,
-  Group,
-  Select,
-  Stack,
-  Table,
-  Text,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Button, Divider, Flex, Space, Table, Text } from "@mantine/core";
+import axios from "axios";
+import { useState } from "react";
 
-const sockpuppets = new Set([
-  { value: "senior_patagon", label: "Senior 1" },
-  { value: "senior", label: "Senior 2" },
-  { value: "youth_patagon", label: "Youth 1" },
-  { value: "youth", label: "Youth 2" },
-  { value: "male_patagon", label: "Male 1" },
-  { value: "male", label: "Male 2" },
-  { value: "female_patagon", label: "Female 1" },
-  { value: "female", label: "Female 2" },
-  { value: "control", label: "Control" },
-]);
+const sockpuppets = {
+  senior_patagon: "Senior 1",
+  senior: "Senior 2",
+  youth_patagon: "Youth 1",
+  youth: "Youth 2",
+  male_patagon: "Male 1",
+  male: "Male 2",
+  female_patagon: "Female 1",
+  female: "Female 2",
+  control: "Control",
+};
 
 function AverageSockpuppetPrice() {
-  const form = useForm({
-    initialValues: {
-      sockpuppet: "",
-    },
-    validate: {
-      sockpuppet: (sockpuppet) =>
-        [...sockpuppets]
-          .map((sockpuppet) => sockpuppet.value)
-          .includes(sockpuppet)
-          ? null
-          : "Please select a sockpuppet account",
-    },
-  });
+  const [showTable, setShowTable] = useState(false);
 
-  const rows = [...sockpuppets].map((sockpuppet) => (
-    <tr key={sockpuppet.value}>
-      <td>{sockpuppet.label}</td>
-      <td>{Math.round(Math.random() * 1_000)}</td>
-      <td>{Math.round(Math.random() * 100)}</td>
-    </tr>
-  ));
+  const [rows, setRows] = useState(null);
+
+  async function handleOnClick() {
+    const response = await axios
+      .get("http://localhost:8888/average-round-trip-price")
+      .catch((error) => console.log(error));
+
+    setRows(
+      response.data.map((data) => (
+        <tr key={data.name}>
+          <td>{sockpuppets[data.name]}</td>
+          <td>${data.avg_price}</td>
+          <td>{data.num_round_trips.toLocaleString()}</td>
+        </tr>
+      ))
+    );
+
+    setShowTable(true);
+  }
 
   return (
     <>
@@ -51,40 +43,32 @@ function AverageSockpuppetPrice() {
         Here you can get the average price each sockpuppet account receives.
       </Text>
 
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
-        <Stack align="flex-start">
-          <Select
-            placeholder="Sockpuppet"
-            label="Sockpuppet"
-            data={[...sockpuppets]}
-            {...form.getInputProps("sockpuppet")}
-          />
+      <Space my="sm" />
 
-          <Group>
-            <Button type="submit">Calculate Select Sockpuppet</Button>
-            <Button>Calculate All</Button>
-          </Group>
-        </Stack>
-      </form>
+      <Button onClick={() => handleOnClick()}>
+        Calculate Average Sockpuppet Price
+      </Button>
 
       <Divider my="sm" />
 
-      <Flex justify="center">
-        <Table captionSide="bottom" sx={{ width: 700 }}>
-          <caption>
-            The average roundtrip proce and the number of round trips each
-            sockpuppet account has made.
-          </caption>
-          <thead>
-            <tr>
-              <th>Sockpuppet</th>
-              <th>Average Price</th>
-              <th>Number of Round Trips</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </Table>
-      </Flex>
+      {showTable && (
+        <Flex justify="center">
+          <Table captionSide="bottom" sx={{ width: 500 }}>
+            <caption>
+              The average roundtrip proce and the number of round trips each
+              sockpuppet account has made.
+            </caption>
+            <thead>
+              <tr>
+                <th>Sockpuppet</th>
+                <th>Average Price</th>
+                <th>Number of Round Trips</th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+        </Flex>
+      )}
     </>
   );
 }
