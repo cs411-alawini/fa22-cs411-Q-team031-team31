@@ -78,7 +78,7 @@ function SearchLegs() {
           </thead>
           <tbody>
             {[...airports].map((airport) => (
-              <tr>
+              <tr key={airport.abbreviation}>
                 <td>{airport.name}</td>
                 <td>{airport.abbreviation}</td>
               </tr>

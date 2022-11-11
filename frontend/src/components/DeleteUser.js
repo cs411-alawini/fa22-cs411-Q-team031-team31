@@ -1,20 +1,27 @@
 import { Button, PasswordInput, Stack, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import axios from "axios";
 
 const INPUT_WIDTH = 300;
 
 function DeleteUser() {
   const form = useForm({
     initialValues: {
-      name: "",
+      username: "",
       password: "",
     },
     validate: {
-      name: (name) => (name.length <= 100 ? null : "Name is too long"),
+      username: (name) => (name.length <= 100 ? null : "Name is too long"),
       password: (password) =>
         password.length <= 100 ? null : "Password is too long",
     },
   });
+
+  function handleOnSubmit(values) {
+    const response = axios.get("http://localhost:8888/delete-user", {
+      params: { username: values.username },
+    });
+  }
 
   return (
     <>
