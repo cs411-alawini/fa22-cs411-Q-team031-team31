@@ -25,7 +25,7 @@ function AddUser() {
     initialValues: {
       username: "",
       name: "",
-      gender: "NB",
+      gender: "NA",
       age: 18,
       zip: "61820",
       website_visited: "",
@@ -40,7 +40,7 @@ function AddUser() {
           ? null
           : "Not a gender option",
       age: (age) => (age >= 18 ? null : "Age too low"),
-      zip: (zip) => (zip.length <= 10 ? null : "Zipcode too long"),
+      zip: (zip) => (zip.length <= 10 ? null : "ZIP code too long"),
       website_visited: (website_visited) =>
         website_visited.length <= 100 ? null : "List too long",
       password: (password) =>
@@ -86,7 +86,7 @@ function AddUser() {
 
           <Select
             label="Gender"
-            placeholder="prefer not to respond"
+            placeholder="Prefer not to respond"
             data={genderOptions}
             {...form.getInputProps("gender")}
             sx={{ width: BUTTON_WIDTH }}
