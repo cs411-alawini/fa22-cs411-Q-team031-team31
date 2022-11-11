@@ -45,9 +45,11 @@ def create_one_user(user: User):
     return create_user(user)
 
 
-@app.get("/delete-user/{username}")
-def delete_one_user(username):
-    return delete_user(username)
+@app.get("/delete-user/{username}&{password}")
+def delete_one_user(username, password):
+
+    print(username, password)
+    return delete_user(username, password)
 
 
 @app.post("/update-user")

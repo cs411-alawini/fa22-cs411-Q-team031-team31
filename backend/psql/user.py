@@ -34,8 +34,8 @@ VALUES (
     logging.info(f"created a user: '{user.username}'")
 
 
-def delete_user(username: str):
-    SQL = f"DELETE FROM human_user WHERE username = '{username}'"
+def delete_user(username: str, password: str):
+    SQL = f"DELETE FROM human_user WHERE username = '{username}' AND password = '{password}'"
 
     query(SQL)
 
