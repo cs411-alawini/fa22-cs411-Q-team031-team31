@@ -17,10 +17,13 @@ function DeleteUser() {
     },
   });
 
-  function handleOnSubmit(values) {
-    const response = axios.get("http://localhost:8888/delete-user", {
-      params: { username: values.username },
-    });
+  async function handleOnSubmit(values) {
+    const response = await axios
+      .get(
+        `http://localhost:8888/delete-user/${values.username}&${values.password}`
+      )
+      .then(() => form.reset())
+      .catch((error) => console.log(error));
   }
 
   return (
@@ -29,13 +32,13 @@ function DeleteUser() {
         Please enter the correct credentials for the user you want to delete
         from the database.
       </Text>
-      <form>
+      <form onSubmit={form.onSubmit((values) => handleOnSubmit(values))}>
         <Stack align="flex-start">
           <TextInput
             withAsterisk
-            label="Name"
-            placeholder="Full Name"
-            {...form.getInputProps("name")}
+            label="Username"
+            placeholder="Username"
+            {...form.getInputProps("username")}
             sx={{ width: INPUT_WIDTH }}
           />
 
