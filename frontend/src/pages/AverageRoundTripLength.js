@@ -30,13 +30,18 @@ function AverageRoundTripLength() {
       .catch((error) => console.log(error));
 
     setRows(
-      response.data.map((data) => (
-        <tr key={data.start_location}>
-          <td>{data.start_location}</td>
-          <td>{startingLocations[data.start_location]}</td>
-          <td>{data.avg_round_trip_length}</td>
-        </tr>
-      ))
+      response.data.map((data) => {
+        // No idea what that start location is.
+        if (data.start_location === "9MY") return null;
+
+        return (
+          <tr key={data.start_location}>
+            <td>{data.start_location}</td>
+            <td>{startingLocations[data.start_location]}</td>
+            <td>{data.avg_round_trip_length}</td>
+          </tr>
+        );
+      })
     );
 
     setShowTable(true);
