@@ -52,9 +52,10 @@ SET
     zip = {stringify(user.zip)},
     website_visited = {stringify(user.website_visited)},
     username = {stringify(user.username)},
-    password = {stringify(user.password)}
 WHERE
     username = {stringify(user.username)}
+AND
+    password = {stringify(user.password)}
     """
 
     query(SQL)
