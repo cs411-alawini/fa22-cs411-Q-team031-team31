@@ -24,7 +24,7 @@ def main():
     logger.info("Initiating the database")
     init_database()
 
-    uvicorn.run(app, host=host, port=port)
+    uvicorn.run("server.api.api:app", host=host, port=port, reload=True)
 
 
 if __name__ == "__main__":

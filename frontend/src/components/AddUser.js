@@ -8,46 +8,74 @@ import {
   PasswordInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import axios from "axios";
 
 const BUTTON_WIDTH = 300;
 
 const genderOptions = [
-  "female",
-  "male",
-  "transgender",
-  "non-binary/non-conforming",
-  "prefer not to respond",
+  { label: "Female", value: "F" },
+  { label: "Male", value: "M" },
+  { label: "Transgender", value: "T" },
+  { label: "Non-binary/non-comforming", value: "NB" },
+  { label: "Prefer not to responsd", value: "NA" },
 ];
 
-function AddUsers() {
+function AddUser() {
   const form = useForm({
     initialValues: {
+      username: "",
       name: "",
-      gender: "prefer not to respond",
+      gender: "NA",
       age: 18,
-      zipCode: 61820,
-      websiteVisited: "",
+      zip: "61820",
+      website_visited: "",
       password: "",
     },
     validate: {
+      username: (username) =>
+        username.length <= 100 ? null : "Username is too long",
       name: (name) => (name.length <= 100 ? null : "Name is too long"),
       gender: (gender) =>
-        genderOptions.includes(gender) ? null : "Not a gender option",
+        genderOptions.map((gender) => gender.value).includes(gender)
+          ? null
+          : "Not a gender option",
       age: (age) => (age >= 18 ? null : "Age too low"),
-      zipCode: (zipCode) =>
-        zipCode.toString().length <= 10 ? null : "Zipcode too long",
-      websiteVisited: (websiteVisited) =>
-        websiteVisited.length <= 100 ? null : "List too long",
+      zip: (zip) => (zip.length <= 10 ? null : "ZIP code too long"),
+      website_visited: (website_visited) =>
+        website_visited.length <= 100 ? null : "List too long",
       password: (password) =>
         password.length <= 100 ? null : "Password is too long",
     },
   });
 
+  async function handleOnSubmit(values) {
+    const response = await axios
+      .post("http://localhost:8888/create-user", values)
+      .then(() => form.reset())
+      .catch((error) => console.log(error));
+  }
+
   return (
     <>
       <Text>Please enter the information required to input a user.</Text>
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={form.onSubmit((values) => handleOnSubmit(values))}>
         <Stack align="flex-start" sx={{ maxWidth: 300 }}>
+          <TextInput
+            withAsterisk
+            label="Username"
+            placeholder="Username"
+            {...form.getInputProps("username")}
+            sx={{ width: BUTTON_WIDTH }}
+          />
+
+          <PasswordInput
+            placeholder="Password"
+            label="Password"
+            withAsterisk
+            {...form.getInputProps("password")}
+            sx={{ width: BUTTON_WIDTH }}
+          />
+
           <TextInput
             withAsterisk
             label="Name"
@@ -58,20 +86,8 @@ function AddUsers() {
 
           <Select
             label="Gender"
-            placeholder="prefer not to respond"
-            data={[
-              { value: "female", label: "Female" },
-              { value: "male", label: "Male" },
-              { value: "transgender", label: "Transgender" },
-              {
-                value: "non-binary/non-conforming",
-                label: "Non-binary/non-conforming",
-              },
-              {
-                value: "prefer not to respond",
-                label: "Prefer not to respond",
-              },
-            ]}
+            placeholder="Prefer not to respond"
+            data={genderOptions}
             {...form.getInputProps("gender")}
             sx={{ width: BUTTON_WIDTH }}
           />
@@ -85,25 +101,17 @@ function AddUsers() {
             sx={{ width: BUTTON_WIDTH }}
           />
 
-          <PasswordInput
-            placeholder="Password"
-            label="Password"
-            withAsterisk
-            {...form.getInputProps("password")}
-            sx={{ width: BUTTON_WIDTH }}
-          />
-
           <TextInput
             label="Websites visited"
             placeholder="reddit.com, github.com, facebook.com"
-            {...form.getInputProps("websiteVisited")}
+            {...form.getInputProps("website_visited")}
             sx={{ width: BUTTON_WIDTH }}
           />
 
           <TextInput
-            label="Zipcode"
+            label="ZIP code"
             placeholder="61820"
-            {...form.getInputProps("zipCode")}
+            {...form.getInputProps("zip")}
             sx={{ width: BUTTON_WIDTH }}
           />
 
@@ -114,4 +122,4 @@ function AddUsers() {
   );
 }
 
-export default AddUsers;
+export default AddUser;

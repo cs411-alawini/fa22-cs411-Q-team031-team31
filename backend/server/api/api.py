@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from psql.models import User
 from psql.price import average_round_trip_price
@@ -11,6 +12,22 @@ def get_app():
 
 
 app = get_app()
+
+# Explanations:
+# - https://github.com/axios/axios/issues/4420
+# - https://stackoverflow.com/q/65635346/18282722
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost",
+        "https://losthost:3000",
+        "https://localhost"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 
 @app.get("/")
@@ -28,9 +45,11 @@ def create_one_user(user: User):
     return create_user(user)
 
 
-@app.get("/delete-user/{username}")
-def delete_one_user(username):
-    return delete_user(username)
+@app.get("/delete-user/{username}&{password}")
+def delete_one_user(username, password):
+
+    print(username, password)
+    return delete_user(username, password)
 
 
 @app.post("/update-user")

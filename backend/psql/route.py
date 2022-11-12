@@ -28,7 +28,7 @@ LIMIT
 
     result = [
         {
-            "led_id": route[0],
+            "leg_id": route[0],
             "carrier": route[1],
             "date": route[2],
             "time": route[3],

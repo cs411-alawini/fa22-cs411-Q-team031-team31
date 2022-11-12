@@ -7,6 +7,7 @@ import logging
 
 
 def create_user(user: User):
+
     SQL = f"""
 INSERT INTO human_user(
     name,
@@ -33,8 +34,8 @@ VALUES (
     logging.info(f"created a user: '{user.username}'")
 
 
-def delete_user(username: str):
-    SQL = f"DELETE FROM human_user WHERE username = '{username}'"
+def delete_user(username: str, password: str):
+    SQL = f"DELETE FROM human_user WHERE username = '{username}' AND password = '{password}'"
 
     query(SQL)
 
@@ -49,11 +50,11 @@ SET
     gender = {stringify(user.gender)},
     age = {stringify(user.age)},
     zip = {stringify(user.zip)},
-    website_visited = {stringify(user.website_visited)},
-    username = {stringify(user.username)},
-    password = {stringify(user.password)}
+    website_visited = {stringify(user.website_visited)}
 WHERE
     username = {stringify(user.username)}
+AND
+    password = {stringify(user.password)}
     """
 
     query(SQL)
