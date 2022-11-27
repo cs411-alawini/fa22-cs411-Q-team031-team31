@@ -1,11 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from psql.models import User
 from psql.price import average_round_trip_price
 from psql.route import search_routes, average_round_trip_length
 from psql.user import create_user, delete_user, update_user
-
+import psycopg2
 
 def get_app():
     return FastAPI()
@@ -42,7 +42,10 @@ def search(airport):
 
 @app.post("/create-user")
 def create_one_user(user: User):
-    return create_user(user)
+    try:
+        return create_user(user)
+    except psycopg2.errors.UniqueViolation:
+        raise HTTPException(status_code=409, detail="Username already exists")
 
 
 @app.get("/delete-user/{username}&{password}")
