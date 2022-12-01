@@ -1,20 +1,30 @@
 import { Button, PasswordInput, Stack, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import axios from "axios";
 
 const INPUT_WIDTH = 300;
 
 function DeleteUser() {
   const form = useForm({
     initialValues: {
-      name: "",
+      username: "",
       password: "",
     },
     validate: {
-      name: (name) => (name.length <= 100 ? null : "Name is too long"),
+      username: (name) => (name.length <= 100 ? null : "Name is too long"),
       password: (password) =>
         password.length <= 100 ? null : "Password is too long",
     },
   });
+
+  async function handleOnSubmit(values) {
+    const response = await axios
+      .get(
+        `http://localhost:8888/delete-user/${values.username}&${values.password}`
+      )
+      .then(() => form.reset())
+      .catch((error) => console.log(error));
+  }
 
   return (
     <>
@@ -22,13 +32,13 @@ function DeleteUser() {
         Please enter the correct credentials for the user you want to delete
         from the database.
       </Text>
-      <form>
+      <form onSubmit={form.onSubmit((values) => handleOnSubmit(values))}>
         <Stack align="flex-start">
           <TextInput
             withAsterisk
-            label="Name"
-            placeholder="Full Name"
-            {...form.getInputProps("name")}
+            label="Username"
+            placeholder="Username"
+            {...form.getInputProps("username")}
             sx={{ width: INPUT_WIDTH }}
           />
 

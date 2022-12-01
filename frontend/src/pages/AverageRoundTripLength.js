@@ -1,60 +1,51 @@
-import {
-  Group,
-  Select,
-  Text,
-  Button,
-  Stack,
-  Table,
-  Divider,
-  Flex,
-} from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Text, Button, Table, Divider, Flex, Space } from "@mantine/core";
+import axios from "axios";
+import { useState } from "react";
 
-const BUTTON_WIDTH = 400;
-
-const startingLocations = new Set([
-  { abbreviation: "AFW", name: "Fort Worth Alliance Airport" },
-  {
-    abbreviation: "ATL",
-    name: "Hartsfield-Jackison Atlanta International Airport",
-  },
-  { abbreviation: "AUS", name: "Austin-Bergstrom International Airport" },
-  { abbreviation: "AZA", name: "Phoenix-Mesa Gateway Airport" },
-  { abbreviation: "BDL", name: "Bradley International Airport" },
-  { abbreviation: "BNA", name: "Nashville International Airport" },
-  { abbreviation: "BUF", name: "Buffalo Niagara International Airport" },
-  { abbreviation: "BUR", name: "Hollywood Burbank Airport" },
-  { abbreviation: "BWI", name: "Baltimore-Washington International Airport" },
-  { abbreviation: "BZN", name: "Bozeman Yellowstone International Airport" },
-  { abbreviation: "CHI", name: "Union Station" },
-  { abbreviation: "CLT", name: "Charlotte Douglas International Airport" },
-  { abbreviation: "CMH", name: "John Glenn Columbus International Airport" },
-  { abbreviation: "DEN", name: "Denver International Airport" },
-]);
+const startingLocations = {
+  AFW: "Fort Worth Alliance Airport",
+  ATL: "Hartsfield-Jackison Atlanta International Airport",
+  AUS: "Austin-Bergstrom International Airport",
+  AZA: "Phoenix-Mesa Gateway Airport",
+  BDL: "Bradley International Airport",
+  BNA: "Nashville International Airport",
+  BUF: "Buffalo Niagara International Airport",
+  BUR: "Hollywood Burbank Airport",
+  BWI: "Baltimore-Washington International Airport",
+  BZN: "Bozeman Yellowstone International Airport",
+  CHI: "Union Station",
+  CLT: "Charlotte Douglas International Airport",
+  CMH: "John Glenn Columbus International Airport",
+  DEN: "Denver International Airport",
+};
 
 function AverageRoundTripLength() {
-  const form = useForm({
-    initialValues: {
-      startingLocation: "",
-    },
-    validate: {
-      startingLocation: (location) =>
-        [...startingLocations]
-          .map((location) => location.abbreviation)
-          .includes(location)
-          ? null
-          : "Please select a starting location",
-    },
-  });
+  const [showTable, setShowTable] = useState(false);
 
-  const rows = [...startingLocations].map((location) => (
-    <tr key={location.abbreviation}>
-      <td>
-        {location.name} ({location.abbreviation})
-      </td>
-      <td>{Math.round(Math.random() * 100)}</td>
-    </tr>
-  ));
+  const [rows, setRows] = useState(null);
+
+  async function handleOnClick() {
+    const response = await axios
+      .get("http://localhost:8888/average-round-trip-length")
+      .catch((error) => console.log(error));
+
+    setRows(
+      response.data.map((data) => {
+        // No idea what that start location is.
+        if (data.start_location === "9MY") return null;
+
+        return (
+          <tr key={data.start_location}>
+            <td>{data.start_location}</td>
+            <td>{startingLocations[data.start_location]}</td>
+            <td>{data.avg_round_trip_length}</td>
+          </tr>
+        );
+      })
+    );
+
+    setShowTable(true);
+  }
 
   return (
     <>
@@ -63,43 +54,32 @@ function AverageRoundTripLength() {
         location/airport.
       </Text>
 
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
-        <Stack align="flex-start">
-          <Select
-            placeholder="Starting Location"
-            label="Starting Location"
-            data={[...startingLocations].map((location) => ({
-              value: location.abbreviation,
-              label: `${location.name} (${location.abbreviation})`,
-            }))}
-            sx={{ width: BUTTON_WIDTH }}
-            {...form.getInputProps("startingLocation")}
-          />
+      <Space my="sm" />
 
-          <Group>
-            <Button type="submit">Calculate Selected Location</Button>
-            <Button>Calculate All</Button>
-          </Group>
-        </Stack>
-      </form>
+      <Button onClick={() => handleOnClick()}>
+        Calculate Average Round Trip Length
+      </Button>
 
       <Divider my="sm" />
 
-      <Flex justify="center">
-        <Table captionSide="bottom" sx={{ width: 700 }}>
-          <caption>
-            This table presents the average round trip duration for each
-            starting location in the database.
-          </caption>
-          <thead>
-            <tr>
-              <th>Starting Location</th>
-              <th>Average Round Trip Time</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </Table>
-      </Flex>
+      {showTable && (
+        <Flex justify="center">
+          <Table captionSide="bottom" sx={{ width: 700 }}>
+            <caption>
+              This table presents the average round trip duration for each
+              starting location in the database.
+            </caption>
+            <thead>
+              <tr>
+                <th>Starting Location</th>
+                <th>Full Name</th>
+                <th>Average Round Trip Time</th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+        </Flex>
+      )}
     </>
   );
 }

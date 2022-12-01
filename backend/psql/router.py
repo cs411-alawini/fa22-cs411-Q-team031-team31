@@ -1,9 +1,11 @@
 from os import environ
+from dotenv import load_dotenv
 
 import psycopg2
 
 
 def get_conn():
+    load_dotenv()
     host = environ["POSTGRES_HOST"]
     dbname = environ["POSTGRES_NAME"]
     user = environ["POSTGRES_USER"]

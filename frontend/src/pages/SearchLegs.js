@@ -8,6 +8,8 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import axios from "axios";
+import { useState } from "react";
 
 const BUTTON_WIDTH = 300;
 
@@ -44,13 +46,40 @@ function SearchLegs() {
     },
   });
 
+  const [showTable, setShowTable] = useState(false);
+  const [rows, setRows] = useState(null);
+
+  async function handleOnSubmit(values) {
+    const response = await axios
+      .get(`http://localhost:8888/search/${values.airport}`)
+      .catch((error) => console.log(error));
+
+    form.reset();
+
+    setRows(
+      response.data.map((data) => (
+        <tr key={data.leg_id}>
+          <td>{data.leg_id}</td>
+          <td>{data.start_location}</td>
+          <td>{data.end_location}</td>
+          <td>{data.carrier}</td>
+          <td>{data.date}</td>
+          <td>{data.time}</td>
+          <td>{data.leg_length}</td>
+        </tr>
+      ))
+    );
+
+    setShowTable(true);
+  }
+
   return (
     <>
       <Text>
         Here you can search the possible legs for a particular airport. Please
         enter one of the codes (case sensitive) associated with an airport.
       </Text>
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={form.onSubmit((values) => handleOnSubmit(values))}>
         <Stack align="flex-start">
           <TextInput
             withAsterisk
@@ -62,6 +91,32 @@ function SearchLegs() {
           <Button type="submit">Search</Button>
         </Stack>
       </form>
+
+      {showTable && (
+        <>
+          <Divider my="sm" />
+          <Flex justify="center">
+            <Table captionSide="bottom" sx={{ width: 1_000 }}>
+              <caption>
+                This table shows the possible legs for a particular searched
+                flight.
+              </caption>
+              <thead>
+                <tr>
+                  <th>Leg ID</th>
+                  <th>Starting Location</th>
+                  <th>Ending Location</th>
+                  <th>Carrier</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Leg Length</th>
+                </tr>
+              </thead>
+              <tbody>{rows}</tbody>
+            </Table>
+          </Flex>
+        </>
+      )}
 
       <Divider my="sm" />
       <Flex justify="center">
@@ -78,7 +133,7 @@ function SearchLegs() {
           </thead>
           <tbody>
             {[...airports].map((airport) => (
-              <tr>
+              <tr key={airport.abbreviation}>
                 <td>{airport.name}</td>
                 <td>{airport.abbreviation}</td>
               </tr>
