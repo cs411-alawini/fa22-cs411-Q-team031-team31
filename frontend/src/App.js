@@ -1,6 +1,7 @@
 import { Text, Title, Tabs, Space, Group } from "@mantine/core";
 import AverageRoundTripLength from "./pages/AverageRoundTripLength";
 import AverageSockpuppetPrice from "./pages/AverageSockpuppetPrice";
+import AddFlights from "./pages/AddFlights";
 import SearchLegs from "./pages/SearchLegs";
 import Users from "./pages/Users";
 
@@ -17,6 +18,7 @@ function App() {
         <Tabs.List>
           <Tabs.Tab value="home">Home</Tabs.Tab>
           <Tabs.Tab value="users">Modify Users</Tabs.Tab>
+          <Tabs.Tab value="add flights">Add Flights</Tabs.Tab>
           <Tabs.Tab value="average round trip length">
             Average Round Trip Length
           </Tabs.Tab>
@@ -37,6 +39,9 @@ function App() {
         </Tabs.Panel>
         <Tabs.Panel value="users" pt="xs">
           <Users />
+        </Tabs.Panel>
+        <Tabs.Panel value="add flights" pt="xs">
+          <AddFlights />
         </Tabs.Panel>
         <Tabs.Panel value="average round trip length" pt="xs">
           <AverageRoundTripLength />
