@@ -82,17 +82,16 @@ function AddFlights() {
   });
 
   async function handleCountOnSubmit(values) {
-    console.log(values);
+    const response = await axios
+      .get(`http://localhost:8888/num-flights/${values.username}`)
+      .catch((error) => console.log(error));
 
-    let count = 10;
     setShowCount(true);
     setCountText(
-      `This user has submitted ${count.toLocaleString("en-US")} round trips.`
+      `This ${values.username} has submitted ${response.data} round trips.`
     );
-    // const response = await axios
-    //   .get("https://localhost:8888/get-round-trips", values)
-    //   .then(() => countForm.reset())
-    //   .catch((error) => con  sole.log(error));
+
+    countForm.reset();
   }
 
   const [showTable, setShowTable] = useState(false);
@@ -157,7 +156,7 @@ function AddFlights() {
             <DatePicker
               placeholder="Round trip date"
               label="Round trip date"
-              withAskterisk
+              withAsterisk
               {...addForm.getInputProps("date")}
               sx={{ width: INPUT_WIDTH }}
             />
@@ -165,6 +164,7 @@ function AddFlights() {
             <TextInput
               label="Start location"
               placeholder="Start location"
+              withAsterisk
               {...addForm.getInputProps("start_location")}
               sx={{ width: INPUT_WIDTH }}
             />
@@ -172,6 +172,7 @@ function AddFlights() {
             <TextInput
               label="End location"
               placeholder="End location"
+              withAsterisk
               {...addForm.getInputProps("end_location")}
               sx={{ width: INPUT_WIDTH }}
             />
@@ -179,6 +180,7 @@ function AddFlights() {
             <TextInput
               label="Carrier"
               placeholder="Carrier"
+              withAsterisk
               {...addForm.getInputProps("carrier")}
               sx={{ width: INPUT_WIDTH }}
             />
