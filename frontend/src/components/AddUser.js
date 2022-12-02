@@ -50,7 +50,7 @@ function AddUser() {
 
   async function handleOnSubmit(values) {
     const response = await axios
-      .post("http://localhost:8888/create-user", values)
+      .post("https://backend-z2wzushc7q-uc.a.run.app/create-user", values)
       .then(() => form.reset())
       .catch((error) => console.log(error));
   }

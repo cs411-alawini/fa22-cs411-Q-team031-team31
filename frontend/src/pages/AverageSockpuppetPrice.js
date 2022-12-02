@@ -21,7 +21,7 @@ function AverageSockpuppetPrice() {
 
   async function handleOnClick() {
     const response = await axios
-      .get("http://localhost:8888/average-round-trip-price")
+      .get("https://backend-z2wzushc7q-uc.a.run.app/average-round-trip-price")
       .catch((error) => console.log(error));
 
     setRows(

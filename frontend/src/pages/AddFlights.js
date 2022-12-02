@@ -55,7 +55,7 @@ function AddFlights() {
 
   async function handleAddOnSubmit(values) {
     await axios
-      .post("http://localhost:8888/insert-new-leg", {
+      .post("https://backend-z2wzushc7q-uc.a.run.app/insert-new-leg", {
         username: values.username,
         password: values.password,
         date: `${values.date.getFullYear()}-${
@@ -67,8 +67,8 @@ function AddFlights() {
         price: values.price,
       })
       .catch((error) => console.log(error));
-    
-    addForm.reset()
+
+    addForm.reset();
   }
 
   const [showCount, setShowCount] = useState(false);
@@ -88,7 +88,9 @@ function AddFlights() {
 
   async function handleCountOnSubmit(values) {
     const response = await axios
-      .get(`http://localhost:8888/num-flights/${values.username}`)
+      .get(
+        `https://backend-z2wzushc7q-uc.a.run.app/num-flights/${values.username}`
+      )
       .catch((error) => console.log(error));
 
     setShowCount(true);
@@ -229,7 +231,7 @@ function AddFlights() {
           <Button
             onClick={async () => {
               const response = await axios
-                .get("http://localhost:8888/average-price")
+                .get("https://backend-z2wzushc7q-uc.a.run.app/average-price")
                 .catch((error) => console.log(error));
 
               setRows(

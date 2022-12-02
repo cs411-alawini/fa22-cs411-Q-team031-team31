@@ -51,7 +51,7 @@ function SearchLegs() {
 
   async function handleOnSubmit(values) {
     const response = await axios
-      .get(`http://localhost:8888/search/${values.airport}`)
+      .get(`https://backend-z2wzushc7q-uc.a.run.app/search/${values.airport}`)
       .catch((error) => console.log(error));
 
     form.reset();

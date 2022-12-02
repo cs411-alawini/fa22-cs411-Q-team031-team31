@@ -20,7 +20,7 @@ function DeleteUser() {
   async function handleOnSubmit(values) {
     const response = await axios
       .get(
-        `http://localhost:8888/delete-user/${values.username}&${values.password}`
+        `https://backend-z2wzushc7q-uc.a.run.app/delete-user/${values.username}&${values.password}`
       )
       .then(() => form.reset())
       .catch((error) => console.log(error));

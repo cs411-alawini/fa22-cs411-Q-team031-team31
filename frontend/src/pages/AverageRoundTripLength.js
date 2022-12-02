@@ -26,7 +26,7 @@ function AverageRoundTripLength() {
 
   async function handleOnClick() {
     const response = await axios
-      .get("http://localhost:8888/average-round-trip-length")
+      .get("https://backend-z2wzushc7q-uc.a.run.app/average-round-trip-length")
       .catch((error) => console.log(error));
 
     setRows(

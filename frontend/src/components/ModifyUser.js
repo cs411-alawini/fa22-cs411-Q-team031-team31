@@ -51,7 +51,7 @@ function ModifyUser() {
 
   async function handleOnSubmit(values) {
     const response = await axios
-      .post("http://localhost:8888/update-user", values)
+      .post("https://backend-z2wzushc7q-uc.a.run.app/update-user", values)
       .then(() => form.reset())
       .catch((error) => console.log(error));
   }
