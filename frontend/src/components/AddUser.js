@@ -17,7 +17,7 @@ const genderOptions = [
   { label: "Male", value: "M" },
   { label: "Transgender", value: "T" },
   { label: "Non-binary/non-comforming", value: "NB" },
-  { label: "Prefer not to responsd", value: "NA" },
+  { label: "Prefer not to responds", value: "NA" },
 ];
 
 function AddUser() {
