@@ -230,7 +230,7 @@ function AddFlights() {
         {showCount && <Text>{countText}</Text>}
 
         <Title order={2}>Average Round Trips Price</Title>
-        <form
+        {/* <form
           onSubmit={averageForm.onSubmit((values) =>
             handleAverageOnSubmit(values)
           )}
@@ -254,7 +254,33 @@ function AddFlights() {
 
             <Button type="submit">Calculate Average Round Trip Price</Button>
           </Stack>
-        </form>
+        </form> */}
+
+        <Stack align="flex-start">
+          <Button
+            onClick={async () => {
+              const response = await axios
+                .get("http://localhost:8888/average-price")
+                .catch((error) => console.log(error));
+
+              setRows(
+                response.data.map((data) => {
+                  return (
+                    <tr key={data.start_location + "-" + data.end_location}>
+                      <td>{data.start_location}</td>
+                      <td>{data.end_location}</td>
+                      <td>${data.avg_price.toLocaleString("en-US")}</td>
+                    </tr>
+                  );
+                })
+              );
+
+              setShowTable(true);
+            }}
+          >
+            Calculate Average Round Trip Price
+          </Button>
+        </Stack>
 
         {showTable && (
           <Flex justify="center">
