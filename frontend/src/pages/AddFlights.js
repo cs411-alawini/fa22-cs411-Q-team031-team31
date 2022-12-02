@@ -37,11 +37,11 @@ function AddFlights() {
           ? null
           : "Password is either too long or empty",
       start_location: (start_location) =>
-        start_location <= 100 && start_location.length !== 0
+        start_location.length <= 100 && start_location.length !== 0
           ? null
           : "Start location is either too long or empty",
       end_location: (end_location) =>
-        end_location <= 100 && end_location.length !== 0
+        end_location.length <= 100 && end_location.length !== 0
           ? null
           : "End location is either too long or empty",
       carrier: (carrier) =>
@@ -54,11 +54,21 @@ function AddFlights() {
   });
 
   async function handleAddOnSubmit(values) {
-    console.log(values);
-    // const response = await axios
-    //   .post("http://localhost:8888/add-flight", values)
-    //   .then(() => addForm.reset())
-    //   .catch((error) => console.log(error));
+    await axios
+      .post("http://localhost:8888/insert-new-leg", {
+        username: values.username,
+        password: values.password,
+        date: `${values.date.getFullYear()}-${
+          values.date.getMonth() + 1
+        }-${values.date.getDate()}`,
+        start_location: values.start_location,
+        end_location: values.end_location,
+        carrier: values.carrier,
+        price: values.price,
+      })
+      .catch((error) => console.log(error));
+    
+    addForm.reset()
   }
 
   const [showCount, setShowCount] = useState(false);
@@ -67,17 +77,12 @@ function AddFlights() {
   const countForm = useForm({
     initialValues: {
       username: "",
-      password: "",
     },
     validate: {
       username: (username) =>
         username.length <= 100 && username.length !== 0
           ? null
           : "Username is either too long or empty",
-      password: (password) =>
-        password.length <= 100 && password.length !== 0
-          ? null
-          : "Password is either too long or empty",
     },
   });
 
@@ -96,34 +101,6 @@ function AddFlights() {
 
   const [showTable, setShowTable] = useState(false);
   const [rows, setRows] = useState(null);
-
-  const averageForm = useForm({
-    initialValues: {
-      username: "",
-      password: "",
-    },
-    validate: {
-      username: (username) =>
-        username.length <= 100 && username.length !== 0
-          ? null
-          : "Username is either too long or empty",
-      password: (password) =>
-        password.length <= 100 && password.length !== 0
-          ? null
-          : "Password is either too long or empty",
-    },
-  });
-
-  async function handleAverageOnSubmit(values) {
-    console.log(values);
-    setShowTable(true);
-    // Set the rows to something.
-
-    // const response = await axios
-    //   .get("https://localhost:8888/get-round-trips", values)
-    //   .then(() => countForm.reset())
-    //   .catch((error) => console.log(error));
-  }
 
   return (
     <>
@@ -212,14 +189,6 @@ function AddFlights() {
               label="Username"
               placeholder="Username"
               {...countForm.getInputProps("username")}
-              sx={{ width: INPUT_WIDTH }}
-            />
-
-            <PasswordInput
-              withAsterisk
-              placeholder="Password"
-              label="Password"
-              {...countForm.getInputProps("password")}
               sx={{ width: INPUT_WIDTH }}
             />
 
