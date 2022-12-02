@@ -13,3 +13,13 @@ class User(BaseModel):
     website_visited: Union[None, str] = None
     username: str
     password: str
+
+
+class NewLeg(BaseModel):
+    username: str
+    password: str
+    date: datetime.date
+    start_location: str
+    end_location: str
+    carrier: str
+    price: int

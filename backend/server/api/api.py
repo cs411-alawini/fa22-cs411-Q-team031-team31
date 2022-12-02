@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from psql.models import User
-from psql.price import average_round_trip_price
+from psql.models import NewLeg, User
+from psql.price import average_round_trip_price, insert_new_leg, average_price_for_start_and_end_location, nunmber_of_flights_inserted_by_user
 from psql.route import search_routes, average_round_trip_length
 from psql.user import create_user, delete_user, update_user
 
@@ -66,3 +66,26 @@ def get_average_round_trip_length():
 @app.get("/average-round-trip-price")
 def get_average_round_trip_price():
     return average_round_trip_price()
+
+
+@app.post("/insert-new-leg")
+def post_insert_new_leg(new_leg: NewLeg):
+    return insert_new_leg(
+        username=new_leg.username,
+        password=new_leg.password,
+        date=new_leg.date,
+        start_location=new_leg.start_location,
+        end_location=new_leg.end_location,
+        carrier=new_leg.carrier,
+        price=new_leg.price
+    )
+
+
+@app.get("/average-price")
+def get_average_price_for_start_and_end_location():
+    return average_price_for_start_and_end_location()
+
+
+@app.get("/num-flights/{username}")
+def get_nunmber_of_flights_inserted_by_user(username):
+    return nunmber_of_flights_inserted_by_user(username)
