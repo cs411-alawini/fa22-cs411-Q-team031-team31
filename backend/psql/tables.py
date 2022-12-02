@@ -62,7 +62,12 @@ def init_price_info_table():
 CREATE TABLE IF NOT EXISTS price_info (
     price INTEGER NOT NULL,
     seller VARCHAR(250) NOT NULL,
-    search_time TIMESTAMP
+    search_time TIMESTAMP,
+    trip_info_id INTEGER,
+    reporter_id INTEGER,
+
+    CONSTRAINT fk_trip_info FOREIGN KEY (trip_info_id) REFERENCES trip_info(route_id),
+    CONSTRAINT fk_reporter FOREIGN KEY (reporter_id) REFERENCES human_user(id)
 )
     """
 
