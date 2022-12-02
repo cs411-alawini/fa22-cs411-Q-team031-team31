@@ -1,46 +1,16 @@
 import { Text, Title, Tabs, Space, Group } from "@mantine/core";
 import AverageRoundTripLength from "./pages/AverageRoundTripLength";
 import AverageSockpuppetPrice from "./pages/AverageSockpuppetPrice";
+import AddFlights from "./pages/AddFlights";
 import SearchLegs from "./pages/SearchLegs";
 import Users from "./pages/Users";
 
 function App() {
-  // const [opened, setOpened] = useState(false);
-  // const loginForm = useForm({
-  //   initialValues: {
-  //     name: "",
-  //     password: "",
-  //   },
-  // });
-
   return (
     <>
       <Group position="apart">
         <Title order={1}>CS 411 Team 31 Frontend</Title>
-        {/* <Button onClick={() => setOpened(true)}>Login</Button> */}
       </Group>
-
-      {/* <Modal opened={opened} onClose={() => setOpened(false)} title="Login">
-        <form onSubmit={loginForm.onSubmit((values) => console.log(values))}>
-          <Stack spacing="md">
-            <Text>
-              If you don't have an account in the database, please make one in
-              the Add User tab.
-            </Text>
-
-            <TextInput withAsterisk label="Name" placeholder="Name" />
-            <PasswordInput
-              withAsterisk
-              label="Password"
-              placeholder="Password"
-            />
-
-            <Button type="submit" sx={{ width: 90 }}>
-              Login
-            </Button>
-          </Stack>
-        </form>
-      </Modal> */}
 
       <Space h="xs" />
 
@@ -48,6 +18,7 @@ function App() {
         <Tabs.List>
           <Tabs.Tab value="home">Home</Tabs.Tab>
           <Tabs.Tab value="users">Modify Users</Tabs.Tab>
+          <Tabs.Tab value="add flights">Add Flights</Tabs.Tab>
           <Tabs.Tab value="average round trip length">
             Average Round Trip Length
           </Tabs.Tab>
@@ -68,6 +39,9 @@ function App() {
         </Tabs.Panel>
         <Tabs.Panel value="users" pt="xs">
           <Users />
+        </Tabs.Panel>
+        <Tabs.Panel value="add flights" pt="xs">
+          <AddFlights />
         </Tabs.Panel>
         <Tabs.Panel value="average round trip length" pt="xs">
           <AverageRoundTripLength />

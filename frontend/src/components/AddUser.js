@@ -17,7 +17,7 @@ const genderOptions = [
   { label: "Male", value: "M" },
   { label: "Transgender", value: "T" },
   { label: "Non-binary/non-comforming", value: "NB" },
-  { label: "Prefer not to responsd", value: "NA" },
+  { label: "Prefer not to responds", value: "NA" },
 ];
 
 function AddUser() {
@@ -50,7 +50,7 @@ function AddUser() {
 
   async function handleOnSubmit(values) {
     const response = await axios
-      .post("http://localhost:8888/create-user", values)
+      .post("https://backend-z2wzushc7q-uc.a.run.app/create-user", values)
       .then(() => form.reset())
       .catch((error) => console.log(error));
   }
