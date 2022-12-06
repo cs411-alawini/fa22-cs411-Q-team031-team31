@@ -17,7 +17,7 @@ _TeamID_: `Team-031`, _TeamName_: `team31`
 | ---------- | ------------------------------------------------------------- |
 | Title      | Flight Pricing and User Profiles                              |
 | System URL | https://analog-sum-366019.uc.r.appspot.com/                   |
-| Video Link | link_to_video                                                 |
+| Video Link | https://youtu.be/K-bgX767Z6M                                  |
 
 ## Project Summary
 
